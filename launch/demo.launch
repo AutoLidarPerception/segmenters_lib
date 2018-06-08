@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+
+    <!-- ROS parameters -->
+    <!--Point Cloud segmenter-->
+    <rosparam command="load" file="$(find segmenters_lib)/config/kitti/segmenter.yaml"/>
+    <!--Detector-->
+    <rosparam command="load" file="$(find segmenters_lib)/config/kitti/detection.yaml"/>
+
+    <!-- load -->
+    <node name="detection_node" pkg="segmenters_lib" type="detection_node" output="screen"/>
+
+    <!-- Launch rviz for visualization -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find segmenters_lib)/rviz/demo.rviz"/>
+
+</launch>
