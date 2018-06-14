@@ -2,7 +2,7 @@
 <package format="2">
   <name>segmenters_lib</name>
   <version>0.0.0</version>
-  <description>The LiDAR segmenters library</description>
+  <description>The LiDAR segmenters library, for segmentation-based detection.</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
@@ -37,6 +37,7 @@
   <!--   <build_depend>roscpp</build_depend> -->
   <!--   <exec_depend>roscpp</exec_depend> -->
   <build_depend>common_lib</build_depend>
+  <build_depend>roi_filters_lib</build_depend>
   <depend>object_builders_lib</depend>
   <!--   <build_depend>message_generation</build_depend> -->
   <!-- Use build_export_depend for packages you need in order to build against this package: -->

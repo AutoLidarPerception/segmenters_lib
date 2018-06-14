@@ -21,6 +21,7 @@ find_package(catkin REQUIRED COMPONENTS
     cmake_modules
     # local packages
     segmenters_lib
+    roi_filters_lib
 )
 
 ## System dependencies are found with CMake's conventions

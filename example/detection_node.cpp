@@ -9,9 +9,12 @@
 #include "common/time.hpp"                      /* common::Clock */
 #include "common/publisher.hpp"                 /* common::publishCloud */
 
+#include "roi_filters/roi.hpp"                  /* roi::applyROIFilter */
 
 const std::string param_ns_prefix_ = "/detect";
 std::string frame_id_;
+bool use_roi_filter_;
+ROIParams params_roi_;
 bool use_non_ground_segmenter_;
 // ROS Subscriber
 ros::Subscriber pointcloud_sub_;
@@ -19,7 +22,7 @@ ros::Subscriber pointcloud_sub_;
 ros::Publisher ground_pub_;
 ros::Publisher nonground_pub_;
 ros::Publisher clusters_pub_;
-//@note Core components
+///@note Core components
 boost::shared_ptr<segmenter::BaseSegmenter> ground_remover_;
 boost::shared_ptr<segmenter::BaseSegmenter> segmenter_;
 
@@ -36,6 +39,10 @@ void OnPointCloud(const sensor_msgs::PointCloud2ConstPtr& ros_pc2)
     header.frame_id = frame_id_;
     header.stamp = ros::Time::now();
 
+    if (use_roi_filter_) {
+        roi::applyROIFilter<PointI>(params_roi_, cloud);
+    }
+
     std::vector<PointICloudPtr> cloud_clusters;
     PointICloudPtr cloud_ground(new PointICloud);
     PointICloudPtr cloud_nonground(new PointICloud);
@@ -44,7 +51,7 @@ void OnPointCloud(const sensor_msgs::PointCloud2ConstPtr& ros_pc2)
     *cloud_ground = *cloud_clusters[0];
     *cloud_nonground = *cloud_clusters[1];
 
-    //reset clusters
+    // reset clusters
     cloud_clusters.clear();
 
     if (use_non_ground_segmenter_) {
@@ -79,6 +86,10 @@ int main(int argc, char** argv)
     private_nh.getParam(param_ns_prefix_ + "/pub_pc_ground_topic", pub_pc_ground_topic);
     private_nh.getParam(param_ns_prefix_ + "/pub_pc_nonground_topic", pub_pc_nonground_topic);
     private_nh.getParam(param_ns_prefix_ + "/pub_pc_clusters_topic", pub_pc_clusters_topic);
+
+    ///@note Important to use roi filter for "Ground remover"
+    private_nh.param<bool>(param_ns_prefix_ + "/use_roi_filter", use_roi_filter_, false);
+    params_roi_ = common::getRoiParams(private_nh, param_ns_prefix_);
 
     // Ground remover & non-ground segmenter
     std::string ground_remover_type, non_ground_segmenter_type;
