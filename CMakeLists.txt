@@ -99,4 +99,4 @@ target_link_libraries(${PROJECT_NAME}
 #############
 
 ## Comment following line to avoid generating demo node
-add_subdirectory(example)
+#add_subdirectory(example)

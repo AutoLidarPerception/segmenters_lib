@@ -37,20 +37,19 @@ namespace segmenter {
 
         int cnt_lpr = 0;
         double height_average = 0.;
-        //filter negative obstacles
-        //bool negative = true;
+        // filter negative obstacles
+        bool negative = true;
         for (size_t pt = 0u; pt < points.size() && cnt_lpr < params_.gpf_num_lpr; ++pt) {
             const double& h = points[pt].z;
-            /*ROS_WARN("[GPF] %lf", h);
             if (negative) {
                 if (fabs(h + params_.gpf_sensor_height) > params_.gpf_th_lprs) {
-                    ROS_WARN("[GPF] Kill %lf", h);
                     continue;
                 }
                 else {
+                    // because points are in "Incremental Order"
                     negative = false;
                 }
-            }*/
+            }
             //TODO collect from non-negative obstacles
             height_average += h;
             cnt_lpr++;

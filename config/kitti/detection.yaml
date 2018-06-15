@@ -24,6 +24,7 @@ detect: {
     ## Horizontal range
     #--- for "Cylinder"
     roi_radius_min_m: 2.,
+    roi_radius_max_m: 120.,
     #--- for "Square"
     #roi_radius_min_m: 15.,
     #roi_radius_max_m: 120.,

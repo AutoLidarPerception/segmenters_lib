@@ -19,7 +19,7 @@ detect: {
     #gpf_num_lpr: 20,
     gpf_num_lpr: 128,
     #gpf_num_lpr: 1280,
-    gpf_th_lprs: 0.8,
+    gpf_th_lprs: 0.08,
     # threshold for points to be considered initial seeds
     gpf_th_seeds: 0.1,
     #gpf_th_seeds: 0.5,
