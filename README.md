@@ -69,8 +69,8 @@
 
 ## TODO lists
 ### Ground Segmenters
-- [x] PCL RANSAC
-> Refer: [PCL: Plane model segmentation](http://pointclouds.org/documentation/tutorials/planar_segmentation.php#planar-segmentation)
+- [x] PCL RANSAC, [ICCV2011 PCL-Segmentation](./doc/ICCV2011%20PCL-Segmentation.pdf)
+    > Refer: [PCL: Plane model segmentation](http://pointclouds.org/documentation/tutorials/planar_segmentation.php#planar-segmentation)
 - [x] GPF (Ground Plane Fitting), ICRA 2017
     ```bibtex
     @inproceedings{zermas2017fast,
@@ -135,8 +135,8 @@
     }
     ```
 ### Non-ground Segmenters
-- [x] PCL Euclidean Cluster Extraction
-> Refer: [PCL: Euclidean Cluster Extraction](http://pointclouds.org/documentation/tutorials/cluster_extraction.php#cluster-extraction)
+- [x] PCL Euclidean Cluster Extraction, [ICCV2011 PCL-Segmentation](./doc/ICCV2011%20PCL-Segmentation.pdf)
+    > Refer: [PCL: Euclidean Cluster Extraction](http://pointclouds.org/documentation/tutorials/cluster_extraction.php#cluster-extraction)
 - [x] Region-based Euclidean Cluster Extraction
     ```bibtex
     @inproceedings{yan2017online,
