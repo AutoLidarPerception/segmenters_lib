@@ -91,9 +91,9 @@ namespace segmenter {
             }
         }
 
-        //#define REGION_CLUSTERING_
-    #ifdef REGION_CLUSTERING_
-        //circular regions one by one
+        //#define _SHOW_CLUSTERING_REGION_
+    #ifdef _SHOW_CLUSTERING_REGION_
+        // circular regions one by one
         for (size_t region = 0u; region < params_.rec_region_size; ++region) {
             PointICloudPtr cluster(new PointICloud);
             pcl::copyPointCloud(*cloud, nested_regions[region], *cluster);
@@ -106,7 +106,7 @@ namespace segmenter {
         //std::vector<float> distMins;
         //std::vector<float > distMaxs;
 
-        //circular regions one by one
+        // circular regions one by one
         double tolerance = params_.rec_region_initial_tolerance;
         for (size_t region = 0u; region < params_.rec_region_size; ++region) {
             //avoid useless Euclidean Cluster Extraction
@@ -188,8 +188,8 @@ namespace segmenter {
 
                         if (common::bbox::groundBoxIoU(gbox_in, gbox_out) > params_.rec_region_merge_tolerance) {
                             *(*cloud_clusters)[clusterId_outside] += *(*cloud_clusters)[clusterId_inside];
-                            ROS_INFO_STREAM("Merged Cluster #" << clusterId_inside << " to #" << clusterId_outside << ".");
-                            //reconstruct merged cluster
+                            //ROS_INFO_STREAM("Merged Cluster #" << clusterId_inside << " to #" << clusterId_outside << ".");
+                            // reconstruct merged cluster
                             *clusters[clusterId_outside]->cloud += *(*cloud_clusters)[clusterId_inside];
                             object_builder_->build(clusters[clusterId_outside]);
 
