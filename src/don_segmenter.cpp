@@ -26,7 +26,7 @@ namespace segmenter {
                         "curvature", pcl::ComparisonOps::GT, params_.don_segmenter_range_threshold
                 )
         ));
-        range_cond_filter_.reset(new pcl::ConditionalRemoval<PointN>(range_cond));
+        range_cond_filter_.setCondition(range_cond);
 
         ec_extractor_.setMinClusterSize(params_.don_segmenter_ec_min_size);
         ec_extractor_.setMaxClusterSize(params_.don_segmenter_ec_max_size);
@@ -36,7 +36,6 @@ namespace segmenter {
     DoNSegmenter::~DoNSegmenter()
     {
         kd_tree_.reset();
-        range_cond_filter_.reset();
         kd_tree_seg_.reset();
     }
 
@@ -84,8 +83,8 @@ namespace segmenter {
 
         //Difference of Normals Based Filtering
         PointNCloudPtr don_cloud_filtered(new PointNCloud);
-        range_cond_filter_->setInputCloud(don_cloud);
-        range_cond_filter_->filter(*don_cloud_filtered);
+        range_cond_filter_.setInputCloud(don_cloud);
+        range_cond_filter_.filter(*don_cloud_filtered);
 
         //Clustering the Results
         std::vector<pcl::PointIndices> clusters_indices;

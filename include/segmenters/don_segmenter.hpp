@@ -48,7 +48,8 @@ namespace segmenter {
         /**
          * @note Build the filter
          */
-        pcl::ConditionalRemoval<PointN>::Ptr range_cond_filter_;
+        pcl::ConditionalRemoval<PointN> range_cond_filter_;
+
         /**
          * @brief
          */
