@@ -29,7 +29,8 @@ find_package(catkin REQUIRED COMPONENTS
 find_package(PCL 1.8 REQUIRED COMPONENTS
     common
     io
-    filter
+    filters
+    features
     segmentation
 )
 add_definitions(${PCL_DEFINITIONS})

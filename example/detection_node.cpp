@@ -56,12 +56,12 @@ void OnPointCloud(const sensor_msgs::PointCloud2ConstPtr& ros_pc2)
 
     if (use_non_ground_segmenter_) {
         segmenter_->segment(*cloud_nonground, &cloud_clusters);
-        common::publishClustersCloud(clusters_pub_, header, cloud_clusters);
+        common::publishClustersCloud<PointI>(clusters_pub_, header, cloud_clusters);
     }
 
 
-    common::publishCloud(ground_pub_, header, *cloud_ground);
-    common::publishCloud(nonground_pub_, header, *cloud_nonground);
+    common::publishCloud<PointI>(ground_pub_, header, *cloud_ground);
+    common::publishCloud<PointI>(nonground_pub_, header, *cloud_nonground);
 
     ROS_INFO_STREAM("Cloud processed. Took " << clock.takeRealTime() << "ms.\n");
 }
