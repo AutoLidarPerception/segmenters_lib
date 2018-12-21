@@ -23,6 +23,9 @@
     $ git clone https://github.com/LidarPerception/segmenters_lib.git segmenters
     
     # build your ros workspace for our segmentation-based detection demo
+    # uncomment add_subdirectory() in src/perception/libs/segmenters/CMakeLists.txt, git diff as following:
+    -#add_subdirectory(example)
+    +add_subdirectory(example)
     $ cd $(CATKIN_WS)
     $ catkin build -DCMAKE_BUILD_TYPE=Release
     ```
