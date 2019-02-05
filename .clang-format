@@ -1,0 +1,9 @@
+---
+Language: Cpp
+BasedOnStyle: google
+IndentWidth: 4
+AccessModifierOffset: -3
+AllowAllParametersOfDeclarationOnNextLine: true
+BinPackParameters: false
+...
+

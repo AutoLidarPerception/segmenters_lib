@@ -26,7 +26,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## System dependencies are found with CMake's conventions
 ### PCL
-find_package(PCL 1.8 REQUIRED COMPONENTS
+find_package(PCL 1.7 REQUIRED COMPONENTS
     common
     io
     filters
@@ -100,4 +100,4 @@ target_link_libraries(${PROJECT_NAME}
 #############
 
 ## Comment following line to avoid generating demo node
-#add_subdirectory(example)
+add_subdirectory(example)
