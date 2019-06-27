@@ -94,7 +94,7 @@ target_link_libraries(${PROJECT_NAME}
 
 # ...
 
-
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBOOST_MATH_DISABLE_FLOAT128")
 #############
 ## Example ##
 #############
