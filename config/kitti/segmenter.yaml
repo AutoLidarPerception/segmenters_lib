@@ -6,7 +6,7 @@ detect: {
     ### Ground Plane Fitting Segmenter
     ## in Paper: Nsegs=3/Niter=3/Nlpr=20/THseeds=0.4m/THdist=0.2m
     # gpf_sensor_model: 64,
-    gpf_sensor_height: 1.73,
+    gpf_sensor_height: 1.23,
     # fitting multiple planes, at most 6 segments
     ## default: 1
     gpf_num_segment: 1,

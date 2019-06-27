@@ -1,7 +1,7 @@
 detect: {
-  frame_id: "velodyne",
+  frame_id: "os1_lidar",
 
-  sub_pc_topic: "/kitti/points_raw",
+  sub_pc_topic: "/os1_cloud_node/points",
   #sub_pc_topic: "/fusion_points",
   sub_pc_queue_size: 1,
 
@@ -20,7 +20,7 @@ detect: {
     roi_type: "Cylinder",
     #roi_type: "Square",
     # ROI filter needs lidar installed height
-    roi_lidar_height_m: 1.73,
+    roi_lidar_height_m: 1.23,
     ## Horizontal range
     #--- for "Cylinder"
     roi_radius_min_m: 2.,
