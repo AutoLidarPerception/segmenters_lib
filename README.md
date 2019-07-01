@@ -20,7 +20,7 @@
     $ cd $(CATKIN_WS)/src/perception/libs
     $ git clone https://github.com/LidarPerception/roi_filters_lib.git roi_filters
     $ git clone https://github.com/LidarPerception/object_builders_lib.git object_builders
-    $ git clone https://github.com/LidarPerception/segmenters_lib.git segmenters
+    $ git clone https://github.com/pat-CIMAR-UF/segmenters_lib.git segmenters
     
     # build your ros workspace for our segmentation-based detection demo
     # uncomment add_subdirectory() in src/perception/libs/segmenters/CMakeLists.txt, git diff as following:
