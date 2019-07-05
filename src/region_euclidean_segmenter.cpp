@@ -19,17 +19,18 @@ RegionEuclideanSegmenter::RegionEuclideanSegmenter() {}
 RegionEuclideanSegmenter::RegionEuclideanSegmenter(
     const SegmenterParams& params)
     : params_(params), kd_tree_(new pcl::search::KdTree<PointI>) {
+    // @brief: region_size = 14 for now
     if (params_.rec_region_size > region_upper_bound_) {
         params_.rec_region_size = region_upper_bound_;
         ROS_WARN_STREAM("Region size reached upper bound ("
                         << region_upper_bound_ << "), use it instead.");
     }
-
+    // @brief: in private of the class created in region_euclidean_segmenter.hpp
     euclidean_cluster_extractor_.setMinClusterSize(
         params_.rec_min_cluster_size);
     euclidean_cluster_extractor_.setMaxClusterSize(
         params_.rec_max_cluster_size);
-    euclidean_cluster_extractor_.setSearchMethod(kd_tree_);
+    euclidean_cluster_extractor_.setSearchMethod(kd_tree_); // @brief defined above: line 21
 
     if (params_.rec_use_region_merge) {
         object_builder_ = object_builder::createObjectBuilder();
@@ -39,7 +40,7 @@ RegionEuclideanSegmenter::RegionEuclideanSegmenter(
 RegionEuclideanSegmenter::~RegionEuclideanSegmenter() {}
 
 void RegionEuclideanSegmenter::segment(
-    const PointICloud &cloud_in, std::vector<PointICloudPtr> &cloud_clusters) {
+    const PointICloud &cloud_in, std::vector<PointICloudPtr> &cloud_clusters) { // vector to store different clusters
     if (cloud_in.empty()) {
         ROS_WARN_STREAM("Empty non-ground for segmentation, do nonthing.");
         return;
