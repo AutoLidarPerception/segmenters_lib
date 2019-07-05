@@ -111,7 +111,7 @@ int main(int argc, char **argv) {
 
     if (use_non_ground_segmenter_) {
         param.segmenter_type = non_ground_segmenter_type;
-        segmenter_ = segmenter::createNonGroundSegmenter(param);
+        segmenter_ = segmenter::createNonGroundSegmenter(param); // the hpp file is referring to include/segmenter_manager.hpp
     }
 
     ground_pub_ =
