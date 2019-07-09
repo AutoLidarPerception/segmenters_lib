@@ -105,7 +105,7 @@ void RegionEuclideanSegmenter::segment(
     }
 #else
     // variables for clusters merge adjacent regions
-    std::vector<std::vector<int> > clusters_region_map(params_.rec_region_size);
+    std::vector<std::vector<int>> clusters_region_map(params_.rec_region_size);
     uint32_t clusterId = 0u;
     // std::vector<float> distMins;
     // std::vector<float > distMaxs;
