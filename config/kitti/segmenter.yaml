@@ -43,8 +43,8 @@ detect: {
     ## regions' size list
     # type: std::vector<int>
     # default: 14
-    rec_region_size: 14,
-    #rec_region_size: 7,
+    #rec_region_size: 14,
+    rec_region_size: 7,
     rec_region_sizes: [4, 5, 5, 5, 5, 5, 5, 4, 5, 5, 5, 5, 5, 5],
     # the same as euclidean distance tolerence for ECE
     rec_region_initial_tolerance: 0.2,
@@ -66,7 +66,7 @@ detect: {
     ## Merge corresponding ground box overlap IoU threshold
     # type: float
     # default: 0., merge if there is overlap
-    rec_region_merge_tolerance: 4.0,
+    rec_region_merge_tolerance: 2.0,
 
     ### Euclidean Cluster Segmenter
     # 0.2,5,30000 in online_learning
@@ -74,12 +74,13 @@ detect: {
     ## euclidean distance threshold
     # type: float
     # default: 0.25
-    ec_tolerance: 0.2,
+    ec_tolerance: 0.22,
     ## minimum/maximum cluster's point number
     # type: int
     # default: 5/30,000
-    ec_min_cluster_size: 20,
+    ec_min_cluster_size: 17,
     #ec_min_cluster_size: 50,
     ec_max_cluster_size: 30000,
   },
 }
+
