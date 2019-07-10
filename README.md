@@ -14,7 +14,7 @@
     
     # git clone basic libraries, like common_lib
     $ cd $(CATKIN_WS)/src/common
-    $ git clone https://github.com/LidarPerception/common_lib.git libs
+    $ git clone https://github.com/pat-CIMAR-UF/common_lib.git libs
     
     # git clone perception libraries, segmenters_lib and its dependencies
     $ cd $(CATKIN_WS)/src/perception/libs
