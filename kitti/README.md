@@ -2,6 +2,6 @@ For downloading all raw data from the KITTI websites, create a new folder, copy 
 
 ```bash
 $ ./raw_data_downloader.sh
-```bash
+```
 
 It will download the zip files and extract them into a coherent data structure: Each folder contains all sequences recorded at a single day, including the calibration files for that day.
