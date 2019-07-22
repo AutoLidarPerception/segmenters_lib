@@ -62,15 +62,14 @@ void EuclideanSegmenter::segment(const PointICloud &cloud_in,
     pcl::PointIndices::Ptr filtered_indices(new pcl::PointIndices);
     filtered_indices->indices.clear();
 
-    for (size_t pt = 0u; pt < project_cloud.points.size(); ++pt){
-        project_cloud.points[pt].z == 0.0;
+    for (size_t pt = 0u; pt < project_cloud.points.size()-2; ++pt){
+        project_cloud.points[pt].z = 0.0;
         filtered_indices->indices.push_back(pt);
     }
     pcl::copyPointCloud(project_cloud, *filtered_indices, *cloud_filtered);
 
     PointICloudPtr input_cloud(new PointICloud);
     *input_cloud = *cloud_filtered;
-    ROS_INFO("Are you really working?");
     //Here my magic end
     //--------------------------------
     std::vector<pcl::PointIndices> cluster_indices;
