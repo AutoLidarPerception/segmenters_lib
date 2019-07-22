@@ -44,6 +44,6 @@ detect: {
   #use_non_ground_segmenter: false,
   ## non-ground segmenter type
   # default: "RegionEuclideanSegmenter"
-  non_ground_segmenter_type: "RegionEuclideanSegmenter",
-  #non_ground_segmenter_type: "EuclideanSegmenter",
+  #non_ground_segmenter_type: "RegionEuclideanSegmenter",
+  non_ground_segmenter_type: "EuclideanSegmenter",
 }

@@ -9,6 +9,16 @@
 
 #include "common/time.hpp"  // common::Clock
 
+#include <ros/ros.h>
+#include <sensor_msgs/PointCloud2.h>
+#include <std_msgs/Header.h>
+
+#include <pcl/point_cloud.h> /* pcl::PointCloud */
+#include <pcl/point_types.h> /* pcl::PointXYZ */
+#include <pcl_conversions/pcl_conversions.h>  // pcl::fromROSMsg
+#include <pcl/io/io.h>                    // pcl::copyPointCloud
+#include <pcl/common/projection_matrix.h>
+
 namespace autosense {
 namespace segmenter {
 
@@ -38,7 +48,22 @@ void EuclideanSegmenter::segment(const PointICloud &cloud_in,
 
     PointICloudPtr cloud(new PointICloud);
     *cloud = cloud_in;
+    //--------------------------------
+    //Here I start my magic
+    PointICloudPtr cloud_filtered(new PointICloud);
+    cloud_filtered->clear();
+    const PointICloud& project_cloud = cloud_in;
 
+    pcl::PointIndices::Ptr filtered_indices(new pcl::PointIndices);
+    filtered_indices->indices.clear();
+
+    for (size_t pt = 0u; pt < project_cloud.points.size(); ++pt){
+        project_cloud.points[pt].z == 0.0;
+        filtered_indices->indices.push_back(pt);
+    }
+    pcl::copyPointCloud(project_cloud, *filtered_indices, *cloud_filtered);
+    //Here my magic end
+    //--------------------------------
     std::vector<pcl::PointIndices> cluster_indices;
 
     // extract clusters
