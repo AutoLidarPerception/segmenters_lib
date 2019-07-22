@@ -74,11 +74,11 @@ detect: {
     ## euclidean distance threshold
     # type: float
     # default: 0.25
-    ec_tolerance: 0.22,
+    ec_tolerance: 0.17,
     ## minimum/maximum cluster's point number
     # type: int
     # default: 5/30,000
-    ec_min_cluster_size: 17,
+    ec_min_cluster_size: 20,
     #ec_min_cluster_size: 50,
     ec_max_cluster_size: 30000,
   },

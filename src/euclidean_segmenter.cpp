@@ -82,7 +82,7 @@ void EuclideanSegmenter::segment(const PointICloud &cloud_in,
         for (size_t cluster_idx = 0u; cluster_idx < cluster_indices.size();
              ++cluster_idx) {
             PointICloudPtr cluster_cloud(new PointICloud);
-            pcl::copyPointCloud(*input_cloud, cluster_indices[cluster_idx],
+            pcl::copyPointCloud(cloud_in, cluster_indices[cluster_idx],
                                 *cluster_cloud);
             cloud_clusters.push_back(cluster_cloud);
         }
