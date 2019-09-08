@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) 2019 by AutoSense Organization. All rights reserved.
+ * Gary Chan <chenshj35@mail2.sysu.edu.cn>
+ */
+
 #include <pcl_conversions/pcl_conversions.h>  // pcl::fromROSMsg
 #include <ros/ros.h>
 #include <sensor_msgs/PointCloud2.h>
@@ -10,10 +15,10 @@
 #include "roi_filters/roi.hpp"               // roi::applyROIFilter
 #include "segmenters/segmenter_manager.hpp"  // segmenter::createGroundSegmenter
 
-using namespace autosense;
+using namespace autosense;  // NOLINT
 
-const std::string param_ns_prefix_ = "/detect";
-std::string frame_id_;
+const std::string param_ns_prefix_ = "/detect";  // NOLINT
+std::string frame_id_ = "";  // NOLINT
 bool use_roi_filter_;
 ROIParams params_roi_;
 bool use_non_ground_segmenter_;
@@ -72,7 +77,7 @@ int main(int argc, char **argv) {
     // Node handle
     ros::NodeHandle nh = ros::NodeHandle(), private_nh = ros::NodeHandle("~");
 
-    //@brief Load ROS parameters from rosparam server
+    /// @brief Load ROS parameters from rosparam server
     private_nh.getParam(param_ns_prefix_ + "/frame_id", frame_id_);
 
     std::string sub_pc_topic, pub_pc_ground_topic, pub_pc_nonground_topic,
@@ -88,7 +93,7 @@ int main(int argc, char **argv) {
     private_nh.getParam(param_ns_prefix_ + "/pub_pc_clusters_topic",
                         pub_pc_clusters_topic);
 
-    ///@note Important to use roi filter for "Ground remover"
+    /// @note Important to use roi filter for "Ground remover"
     private_nh.param<bool>(param_ns_prefix_ + "/use_roi_filter",
                            use_roi_filter_, false);
     params_roi_ = common::getRoiParams(private_nh, param_ns_prefix_);
