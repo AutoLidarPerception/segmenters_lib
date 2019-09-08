@@ -1,0 +1,34 @@
+version: 2
+jobs:
+  cpplint:
+    docker:
+      - image: debian:stretch
+    filters:
+      branches:
+        only: master
+    working_directory: ~/catkin_ws/src/segmenters
+    steps:
+      - checkout
+      - run:
+          name: Prepare cpplint
+          command: cd ~/catkin_ws/ && apt-get update && apt-get install -y python-pip && pip install getgist && getgist -y Durant35 cpplint.py
+      - run:
+          name: Check cpplint
+          command: cd ~/catkin_ws/ && python cpplint.py --repository=`pwd`/src/ --recursive src/segmenters
+  build:
+    docker:
+      - image: debian:stretch
+    filters:
+      branches:
+        only: master
+    steps:
+      - checkout
+      - run:
+          name: TBD
+          command: echo "build, To be done..."
+workflows:
+  version: 2
+  ci_for_autosense:
+    jobs:
+      - cpplint
+      - build

@@ -1,4 +1,6 @@
 # segmenters_lib
+[![CircleCI](https://circleci.com/gh/LidarPerception/segmenters_lib/tree/master.svg?style=svg)](https://circleci.com/gh/LidarPerception/segmenters_lib/tree/master)
+
 　　The LiDAR segmenters library, for segmentation-based detection.
 <p align="center">
     <img src=".readme/demo.gif" width="720px" alt=""/>
