@@ -1,0 +1,106 @@
+detect: {
+    roi: {
+        ## ROI range
+        # type: true, float, float, float
+        # default: 60.0,999.0,999.0 in SegMatch
+        # default: "Cylinder"(0,60)
+        roi_type: "Cylinder",
+        #roi_type: "Square",
+        # ROI filter needs lidar installed height
+        roi_lidar_height_m: 1.73,
+        ## Horizontal range
+        #--- for "Cylinder"
+        roi_radius_min_m: 2.,
+        roi_radius_max_m: 120.,
+        #--- for "Square"
+        #roi_radius_min_m: 15.,
+        #roi_radius_max_m: 120.,
+        # Vertical range
+        roi_height_below_m: 1.,
+        roi_height_above_m: 20.,
+    },
+
+    Segmenter: {
+        #---------------------------------------- Ground Segmenter
+        ## default: Ground Plane Fitting Segmenter
+
+        ### Ground Plane Fitting Segmenter
+        ## in Paper: Nsegs=3/Niter=3/Nlpr=20/THseeds=0.4m/THdist=0.2m
+        # gpf_sensor_model: 64,
+        gpf_sensor_height: 1.73,
+        # fitting multiple planes, at most 6 segments
+        ## default: 1
+        gpf_num_segment: 1,
+        #gpf_num_segment: 3,
+        # number of iterations
+        #gpf_num_iter: 3,
+        gpf_num_iter: 10,
+        ## number of points used to estimate the lowest point representative(LPR)
+        # double of senser model???
+        #gpf_num_lpr: 20,
+        gpf_num_lpr: 128,
+        #gpf_num_lpr: 1280,
+        gpf_th_lprs: 0.08,
+        # threshold for points to be considered initial seeds
+        gpf_th_seeds: 0.1,
+        #gpf_th_seeds: 0.5,
+        # ground points threshold distance from the plane <== large to guarantee safe removal
+        #gpf_th_gnds: 0.23,
+        gpf_th_gnds: 0.3,
+
+        ### Ground RANSAC Segmenter
+        # 0.3 for better perforamce
+        ## default: 0.3
+        sac_distance_threshold: 0.2,
+        ## default: 100
+        sac_max_iteration: 100,
+        ## default: 0.99
+        sac_probability: 0.99,
+
+        #---------------------------------------- Non-ground Segmenter
+        # default: Region Euclidean Cluster Segmenter
+
+        ### Region Euclidean Cluster Segmenter
+        ## regions' size list
+        # type: std::vector<int>
+        # default: 14
+        rec_region_size: 14,
+        #rec_region_size: 7,
+        rec_region_sizes: [4, 5, 5, 5, 5, 5, 5, 4, 5, 5, 5, 5, 5, 5],
+        # the same as euclidean distance tolerence for ECE
+        rec_region_initial_tolerance: 0.2,
+        ## increase euclidean distance tolerence between adjacent region
+        # type: float
+        # default: 0.2
+        rec_region_delta_tolerance: 0.1,
+        ## minimum/maximum cluster's point number
+        # type: int
+        # default: 5/30000
+        rec_min_cluster_size: 20,
+        #rec_min_cluster_size: 50,
+        rec_max_cluster_size: 30000,
+        ## Clusters merged between regions
+        # type: bool
+        # default: false
+        #rec_use_region_merge: false,
+        rec_use_region_merge: true,
+        ## Merge corresponding ground box overlap IoU threshold
+        # type: float
+        # default: 0., merge if there is overlap
+        rec_region_merge_tolerance: 4.0,
+
+        ### Euclidean Cluster Segmenter
+        # 0.2,5,30000 in online_learning
+        # 0.2,200,15000 in SegMatch
+        ## euclidean distance threshold
+        # type: float
+        # default: 0.25
+        ec_tolerance: 0.2,
+        ## minimum/maximum cluster's point number
+        # type: int
+        # default: 5/30,000
+        ec_min_cluster_size: 20,
+        #ec_min_cluster_size: 50,
+        ec_max_cluster_size: 30000,
+    },
+}

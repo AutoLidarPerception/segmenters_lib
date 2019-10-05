@@ -17,7 +17,7 @@
 
 using namespace autosense;  // NOLINT
 
-const std::string param_ns_prefix_ = "/detect";  // NOLINT
+const std::string param_ns_prefix_ = "detect";  // NOLINT
 std::string frame_id_ = "";  // NOLINT
 bool use_roi_filter_;
 ROIParams params_roi_;
