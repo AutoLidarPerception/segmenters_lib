@@ -2,7 +2,6 @@ detect: {
   frame_id: "velodyne",
 
   sub_pc_topic: "/kitti/points_raw",
-  #sub_pc_topic: "/fusion_points",
   sub_pc_queue_size: 1,
 
   pub_pc_ground_topic: "/segmenter/points_ground",
@@ -26,4 +25,10 @@ detect: {
   # default: "RegionEuclideanSegmenter"
   non_ground_segmenter_type: "RegionEuclideanSegmenter",
   #non_ground_segmenter_type: "EuclideanSegmenter",
+
+  ## Object Builder
+  # type: bool
+  # default: false
+  is_object_builder_open: true,
+  pub_objects_segmented_topic: "/segmenter/objects_segmented",
 }

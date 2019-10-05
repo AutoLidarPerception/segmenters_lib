@@ -7,11 +7,15 @@
 #include <ros/ros.h>
 #include <sensor_msgs/PointCloud2.h>
 #include <std_msgs/Header.h>
+#include <visualization_msgs/MarkerArray.h>
+#include <memory>
 
-#include "common/parameter.hpp"              // common::getSegmenterParams
-#include "common/publisher.hpp"              // common::publishCloud
-#include "common/time.hpp"                   // common::Clock
-#include "common/types/type.h"               // PointICloudPtr
+#include "common/color.hpp"
+#include "common/parameter.hpp"  // common::getSegmenterParams
+#include "common/publisher.hpp"  // common::publishCloud
+#include "common/time.hpp"       // common::Clock
+#include "common/types/type.h"   // PointICloudPtr
+#include "object_builders/object_builder_manager.hpp"
 #include "roi_filters/roi.hpp"               // roi::applyROIFilter
 #include "segmenters/segmenter_manager.hpp"  // segmenter::createGroundSegmenter
 
@@ -22,15 +26,18 @@ std::string frame_id_ = "";  // NOLINT
 bool use_roi_filter_;
 ROIParams params_roi_;
 bool use_non_ground_segmenter_;
+bool is_object_builder_open_;
 // ROS Subscriber
 ros::Subscriber pointcloud_sub_;
 // ROS Publisher
 ros::Publisher ground_pub_;
 ros::Publisher nonground_pub_;
 ros::Publisher clusters_pub_;
+ros::Publisher objects_pub_;
 /// @note Core components
-boost::shared_ptr<segmenter::BaseSegmenter> ground_remover_;
-boost::shared_ptr<segmenter::BaseSegmenter> segmenter_;
+std::unique_ptr<segmenter::BaseSegmenter> ground_remover_;
+std::unique_ptr<segmenter::BaseSegmenter> segmenter_;
+std::unique_ptr<object_builder::BaseObjectBuilder> object_builder_;
 
 void OnPointCloud(const sensor_msgs::PointCloud2ConstPtr& ros_pc2) {
     common::Clock clock;
@@ -57,7 +64,6 @@ void OnPointCloud(const sensor_msgs::PointCloud2ConstPtr& ros_pc2) {
 
     // reset clusters
     cloud_clusters.clear();
-
     if (use_non_ground_segmenter_) {
         segmenter_->segment(*cloud_nonground, cloud_clusters);
         common::publishClustersCloud<PointI>(clusters_pub_, header,
@@ -66,6 +72,13 @@ void OnPointCloud(const sensor_msgs::PointCloud2ConstPtr& ros_pc2) {
 
     common::publishCloud<PointI>(ground_pub_, header, *cloud_ground);
     common::publishCloud<PointI>(nonground_pub_, header, *cloud_nonground);
+
+    if (is_object_builder_open_) {
+        std::vector<autosense::ObjectPtr> objects;
+        object_builder_->build(cloud_clusters, &objects);
+        autosense::common::publishObjectsMarkers(
+            objects_pub_, header, autosense::common::MAGENTA.rgbA, objects);
+    }
 
     ROS_INFO_STREAM("Cloud processed. Took " << clock.takeRealTime()
                                              << "ms.\n");
@@ -117,6 +130,22 @@ int main(int argc, char **argv) {
     if (use_non_ground_segmenter_) {
         param.segmenter_type = non_ground_segmenter_type;
         segmenter_ = segmenter::createNonGroundSegmenter(param);
+    }
+
+    private_nh.param<bool>(param_ns_prefix_ + "/is_object_builder_open",
+                           is_object_builder_open_, false);
+    if (is_object_builder_open_) {
+        object_builder_ = object_builder::createObjectBuilder();
+        if (nullptr == object_builder_) {
+            ROS_FATAL("Failed to create object_builder_.");
+            return -1;
+        }
+
+        std::string pub_objects_segmented_topic;
+        private_nh.getParam(param_ns_prefix_ + "/pub_objects_segmented_topic",
+                            pub_objects_segmented_topic);
+        objects_pub_ = nh.advertise<visualization_msgs::MarkerArray>(
+                pub_objects_segmented_topic, 1);
     }
 
     ground_pub_ =
