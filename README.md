@@ -178,7 +178,7 @@
     <p align="center">
         <img src=".readme/Tracking-help Segmentation.png" width="480px" alt=""/>
     </p>
-- [x] **Tracking-help Segmentation**. IV, 2012. Not yet in this repository.
+- [x] **Tracking-help Segmentation**. IV, 2012. Implemented in our [tracking_lib](https://github.com/LidarPerception/tracking_lib).
     ```bibtex
     @inproceedings{himmelsbach2012tracking,
       title={Tracking and classification of arbitrary objects with bottom-up/top-down detection},

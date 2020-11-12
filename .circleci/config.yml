@@ -2,26 +2,32 @@ version: 2
 jobs:
   cpplint:
     docker:
-      - image: debian:stretch
+      - image: cimg/base:stable-18.04
     filters:
       branches:
         only: master
     working_directory: ~/catkin_ws/src/segmenters
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "2a:6a:1d:08:61:fc:57:9e:01:4d:0e:2f:ba:63:63:b9"
       - checkout
       - run:
           name: Prepare cpplint
-          command: cd ~/catkin_ws/ && apt-get update && apt-get install -y python-pip && pip install getgist && getgist -y Durant35 cpplint.py
+          command: cd ~/catkin_ws/ && sudo apt-get update && sudo apt-get install -y python-pip && pip install getgist && getgist -y Durant35 cpplint.py
       - run:
           name: Check cpplint
           command: cd ~/catkin_ws/ && python cpplint.py --repository=`pwd`/src/ --recursive src/segmenters
   build:
     docker:
-      - image: debian:stretch
+      - image: cimg/base:stable-18.04
     filters:
       branches:
         only: master
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "2a:6a:1d:08:61:fc:57:9e:01:4d:0e:2f:ba:63:63:b9"
       - checkout
       - run:
           name: TBD
