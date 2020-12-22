@@ -24,6 +24,13 @@ find_package(catkin REQUIRED COMPONENTS
     object_builders_lib
 )
 
+find_package(OpenMP)
+if (OPENMP_FOUND)
+    set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+    set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
+endif()
+
 ## System dependencies are found with CMake's conventions
 ### PCL
 find_package(PCL 1.7 REQUIRED COMPONENTS
@@ -75,6 +82,7 @@ add_library(${PROJECT_NAME}
     src/region_euclidean_segmenter.cpp
     src/region_growing_segmenter.cpp
     src/don_segmenter.cpp
+    src/GuassianProcess.cpp
 )
 
 ## http://mariobadr.com/creating-a-header-only-library-with-cmake.html
