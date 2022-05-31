@@ -18,6 +18,7 @@
 #include "object_builders/object_builder_manager.hpp"
 #include "roi_filters/roi.hpp"               // roi::applyROIFilter
 #include "segmenters/segmenter_manager.hpp"  // segmenter::createGroundSegmenter
+#include "segmenters/GuassianProcess.h"  //GPR
 
 using namespace autosense;  // NOLINT
 
@@ -57,10 +58,14 @@ void OnPointCloud(const sensor_msgs::PointCloud2ConstPtr& ros_pc2) {
     std::vector<PointICloudPtr> cloud_clusters;
     PointICloudPtr cloud_ground(new PointICloud);
     PointICloudPtr cloud_nonground(new PointICloud);
-
-    ground_remover_->segment(*cloud, cloud_clusters);
+    
+    //GPF ground remove
+    /*ground_remover_->segment(*cloud, cloud_clusters);
     *cloud_ground = *cloud_clusters[0];
-    *cloud_nonground = *cloud_clusters[1];
+    *cloud_nonground = *cloud_clusters[1];*/
+
+    //GPR ground remove
+    segmenter::GP_INSAC(*cloud, *cloud_nonground, *cloud_ground);
 
     // reset clusters
     cloud_clusters.clear();
