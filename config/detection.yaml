@@ -1,7 +1,8 @@
 detect: {
   frame_id: "velodyne",
 
-  sub_pc_topic: "/kitti/points_raw",
+  #sub_pc_topic: "/kitti/points_raw",
+  sub_pc_topic: "/kitti/velo/pointcloud",
   sub_pc_queue_size: 1,
 
   pub_pc_ground_topic: "/segmenter/points_ground",
@@ -10,7 +11,7 @@ detect: {
 
   ## Important to use roi filter for "Ground remover"
   #use_roi_filter: false,
-  use_roi_filter: true,
+  use_roi_filter: false,
 
   ## Ground Segmenter
   # type: string
